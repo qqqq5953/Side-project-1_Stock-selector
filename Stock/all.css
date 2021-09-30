@@ -1,0 +1,29 @@
+.output .csp,
+.output .dca {
+  width : 600px;
+  height: 30px;
+}
+
+.outline {
+  outline: 1px solid red;
+}
+
+.wrap {
+  background-color: #f2f1f7;
+}
+
+header {
+  display: flex;
+}
+
+header .output {
+  border: 3px solid #272848;
+}
+
+.description {
+  margin-left: 20px;
+}
+
+.content .holding {
+  background-color: #6d71f9;
+}

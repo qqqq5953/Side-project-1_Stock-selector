@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Selector</title>
+  <link rel="stylesheet" href="/all.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="app" class="container-fluid wrap">
+    <div class="container">
+      <header class="row py-3 justify-content-between border-bottom border-3">
+        <section class="output p-3 rounded-2 col-6">
+          <h1 class="h3">結果呈現區</h1>
+          <h3 class="h5">定期定股標的</h3>
+          <div class="csp border border-secondary mb-2 w-100 ps-2"><span v-for="item in numCart">{{item.name}}／</span>
+          </div>
+          <h3 class="h5">定期定額標的</h3>
+          <div class="dca border border-secondary mb-2 w-100 ps-2"><span
+              v-for="item in amountCart">{{item.name}}／</span>
+          </div>
+          <h3 class="h5">Total</h3>
+          <span>美元：<span class="fw-bold h3"> USD {{parseFloat(total.toFixed(2))}}</span></span>
+          <span> / 台幣：<span class="fw-bold h3"> TWD {{parseInt(total*27.71)}} </span></span>
+        </section>
+        <section class="col-5">
+          <h2 class="h3">說明</h2>
+          <ol>
+            <li>由於目前有投資美股，且每個月資金有限，因此選擇用永豐證券的定期定額/定期定股投資，手續費較一般服委託便宜。</li>
+            <li>然而市場變化大，有時候會想在特定時間加減碼或改變持股，但要在預算限制內，此時要一直計算很麻煩，因此才希望可以設計一個介面可以快速算出不同組合的個股是否可以滿足上述條件。</li>
+          </ol>
+        </section>
+      </header>
+
+      <!-- <hr> -->
+      <div class="content pt-3">
+        <h2 class="h3 text-center mb-3">目前持股</h2>
+        <ul class="row">
+          <li class="mb-3 col-4 list-unstyled text-white" v-for="item in stock" :key="item.name">
+            <div class="card holding">
+              <div class="card-title px-4 pt-3 py-2 h4 border-bottom">{{item.name}}</div>
+              <div class="card-body mb-2 mx-2">
+                <!--定期定股-->
+                <h4 class="h5 mb-1">定期定股</h4>
+                <div class="d-flex mb-3 ">
+                  <div class="form-check me-0">
+                    <input :id="item.priceFixNum" type="checkbox" @input="addStockNum(item)" v-model="item.numIsChecked"
+                      class="form-check-input" style="width:18px; height:18px; padding-left: 10px;">
+                    <label :for="item.priceFixNum" class="form-check-label ms-1 h5">USD {{item.priceFixNum}}／</label>
+                  </div>
+                  <!--輸入-->
+                  <div class="form-check ps-0">
+                    <label :for="item.stockNum" class="form-label me-2 h5">請輸入股數</label>
+                    <input :id="item.stockNum" type="text" v-model="item.stockNum"
+                      style="width:25px; height:25px ;font-size:16px" class="ps-1">
+                  </div>
+                </div>
+
+                <!--定期定額-->
+                <h4 class="h5 mb-0">定期定額</h4>
+                <div class="form-check form-check-inline">
+                  <input :id="item.name" type="checkbox" @input="addStockAmount(item)" v-model="item.amountIsChecked"
+                    class="form-check-input" style="width:18px; height:18px">
+                  <label :for="item.name" class="form-check-label ms-1">USD {{item.priceFixAnount}}</label>
+                </div>
+              </div>
+            </div>
+
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script>
+  <script src="/all.js"></script>
+</body>
+
+</html>
